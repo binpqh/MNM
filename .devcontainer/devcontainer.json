@@ -1,0 +1,15 @@
+{
+  "name": "Rider + .NET 9 + MSSQL",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "root",
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": []
+    }
+  },
+  "forwardPorts": [1433],
+  "postCreateCommand": "dotnet --version"
+}

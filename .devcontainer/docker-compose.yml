@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    environment:
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
+    networks:
+      - devnet
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "qwe123!@#"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - devnet
+
+networks:
+  devnet:
+    driver: bridge
