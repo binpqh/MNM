@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "MDM.Product.gRPC";
+
+package product;
+
+// The product service definition.
+service ProductService {
+  // Sends a greeting
+  rpc GetProduct (HelloRequest) returns (HelloReply);
+  rpc GetProducts;
+  rpc CreateProducts;
+  rpc UpdateProducts;
+  rpc DeleteProduct;
+}
