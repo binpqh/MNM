@@ -1,4 +1,4 @@
-using MNM.Product.gRPC.Services;
+using MDM.Product.gRPC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "MNM.Product.gRPC";
+option csharp_namespace = "MDM.Product.gRPC";
 
 package greet;
 

@@ -1,7 +1,7 @@
 using Grpc.Core;
-using MNM.Product.gRPC;
+using MDM.Product.gRPC;
 
-namespace MNM.Product.gRPC.Services;
+namespace MDM.Product.gRPC.Services;
 
 public class GreeterService : Greeter.GreeterBase
 {
