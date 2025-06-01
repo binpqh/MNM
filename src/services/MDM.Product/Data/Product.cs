@@ -10,6 +10,10 @@ public sealed class Product
 
     public decimal Price { get; set; }
     
+    public Guid ShopId { get; set; } = Guid.Empty;
+    
+    public List<Image> Images { get; set; } = new List<Image>();
+    
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     
     public DateTimeOffset? UpdatedAt { get; set; }
