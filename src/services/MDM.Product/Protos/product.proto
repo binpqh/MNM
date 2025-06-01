@@ -1,15 +1,44 @@
 syntax = "proto3";
+import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "MDM.Product.gRPC";
 
 package product;
 
-// The product service definition.
 service ProductService {
-  // Sends a greeting
-  rpc GetProduct (HelloRequest) returns (HelloReply);
-  rpc GetProducts;
-  rpc CreateProducts;
-  rpc UpdateProducts;
-  rpc DeleteProduct;
+  rpc GetProduct (ProductRequest) returns (ProductReply);
+  rpc GetProducts (Empty) returns (ProductListReply);
+  rpc CreateProduct (CreateProductRequest) returns (ProductReply);
+  rpc UpdateProduct (UpdateProductRequest) returns (ProductReply);
+  rpc DeleteProduct (ProductRequest) returns (Empty);
+}
+
+// === Message Definitions ===
+
+message Empty {}
+
+message ProductRequest {
+  string id = 1;
+}
+
+message CreateProductRequest {
+  string name = 1;
+  double price = 2;
+}
+
+message UpdateProductRequest {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+}
+
+message ProductReply {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+  google.protobuf.Timestamp createdAt = 4; // ISO 8601 format
+}
+
+message ProductListReply {
+  repeated ProductReply products = 1;
 }

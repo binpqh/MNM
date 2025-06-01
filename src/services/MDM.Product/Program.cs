@@ -1,16 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using MDM.Product.gRPC.Services;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
-
-// Configure EF Core with InMemory database
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseInMemoryDatabase("ProductDb"));
 
 
 var app = builder.Build();

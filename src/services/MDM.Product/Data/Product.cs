@@ -1,12 +1,43 @@
+using MDM.Product.gRPC.Services;
+
 namespace MDM.Product.gRPC.Data;
 
-public sealed class Product(int id, string name, decimal price)
+public sealed class Product
 {
-    public int Id { get; init; } = id;
+    public Guid Id { get; init; }
 
-    public string Name { get; set; } = name.Length <= 100
-        ? name
-        : throw new ArgumentException("Name is too long (max 100 characters)");
+    public string Name { get; set; } = string.Empty;
 
-    public decimal Price { get; set; } = price;
+    public decimal Price { get; set; }
+    
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+    
+    public DateTimeOffset? UpdatedAt { get; set; }
+    
+    public DateTimeOffset? DeletedAt { get; set; }
+    
+    public Guid CreatedBy { get; set; } = Guid.Empty;
+    
+    public Guid? LastModifier { get; set; }
+    
+    public Guid? DeletedBy { get; set; }
+    
+    public bool IsDeleted { get; set; } = false;
+    
+    public ProductResponse ToResponse()
+    {
+        return new ProductResponse
+        {
+            Id = Id,
+            Name = Name,
+            Price = Price,
+            CreatedAt = CreatedAt,
+            UpdatedAt = UpdatedAt,
+            DeletedAt = DeletedAt,
+            CreatedBy = CreatedBy,
+            LastModifier = LastModifier,
+            DeletedBy = DeletedBy,
+            IsDeleted = IsDeleted
+        };
+    }
 }
