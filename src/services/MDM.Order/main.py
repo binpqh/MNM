@@ -1,19 +1,24 @@
 """FastAPI application for MDM Order service."""
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from scalar_fastapi import get_scalar_api_reference
+from app.database import client, db
 
-# Import database and routes
-from app.api.v1 import orders
-from app.models import OrderItem, Order
-from app.models.order import to_dict
+@asynccontextmanager
+async def lifespan(app_builder: FastAPI):
+    app_builder.mongodb_client = client
+    app_builder.database = db
+    yield
+    app_builder.mongodb_client.close()
 
 # Create FastAPI application instance
 app = FastAPI(
+    lifespan=lifespan,
     title="MDM Order",
     version="1.0",
     description="Order management service for MDM system",
 )
-
 
 # Root endpoint
 @app.get("/")
@@ -25,10 +30,10 @@ async def root():
 async def scalar():
     """
     Serve the Scalar API reference documentation.
-    
+
     This endpoint returns an interactive API documentation interface using Scalar.
     The documentation is generated from the FastAPI application's OpenAPI schema.
-    
+
     Returns:
         HTML content: The Scalar API reference interface
     """
@@ -36,22 +41,3 @@ async def scalar():
         title=app.title, # type: ignore
         openapi_url=app.openapi_url, # type: ignore
     )
-
-# Endpoint that greets the user by name
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    """Endpoint that greets the user by name."""
-    return {"message": f"Hello {name}"}
-
-
-
-@app.get("/sample")
-async def sample():
-    """Endpoint that greets the user by name."""
-    item = OrderItem.create(1, 1, 2000)
-
-    order = Order()
-
-    order.add_item(item)
-
-    return {"message": f"Hello"}
